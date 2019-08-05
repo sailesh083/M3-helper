@@ -1,0 +1,48 @@
+#include<stdio.h>
+#include<conio.h>
+#include<math.h>
+void main()
+{
+    float ax[100], ay [100], diff[100][100],z=0,l=1,x,h,p;
+    int n,i,j;
+    clrscr();
+    printf("\nEnter the value of n:\n");
+    scanf("%d",&n);
+
+    printf("\nEnter the values in form x,y:\n");
+    for (i=0;i<n;i++)
+	scanf("%f %f",&ax[i],&ay[i]);
+    printf("\nEnter the value of x for which the value of y is wanted: \n");
+    scanf("%f",&x);
+
+
+    //now making the difference table
+    //calculating the 1st order of differences
+    for (i=0;i<=n-1;i++)
+	diff[i][1] = ay[i+1]-ay[i];
+
+    //now calculating the second and higher order differences
+    for (j=2;j<=n-1;j++)
+	for(i=0;i<=(n-1)-j;i++)
+	diff[i][j] = diff[i+1][j-1] - diff[i][j-1];
+    for(j=1;j<=n-1;j++)
+    for(i=0;i<=(n-1)-j;i++)
+    printf("%f\n",diff[i][j]);
+   h=ax[1]-ax[0];
+    p = (x-ax[0])/h;
+    printf("\n %f",p);
+
+
+
+    for(j=1;j<n;j++)
+    {
+
+	l=(l*(p-(j-1)))/j;
+	z=z+(l*diff[0][j]);
+
+    }
+    z=z+ay[0];
+
+   printf("\n %f",z);
+   getch();
+}
